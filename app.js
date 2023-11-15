@@ -1,3 +1,23 @@
+const studentList = [
+  "김우진",
+  "김현",
+  "방승희",
+  "변호녕",
+  "소사무엘",
+  "송영준",
+  "신동현",
+  "오승민",
+  "유승민",
+  "윤준현",
+  "이민구",
+  "이유안",
+  "이은정",
+  "정영식",
+  "최성민",
+  "최은철",
+  "홍문기"
+];
+
 /**
  * 주어진 배열을 무작위로 섞는 함수
  * @param {Array} array - 섞을 배열
@@ -26,3 +46,15 @@ function shuffleArray(array) {
 
   return array; // 섞인 배열 반환
 }
+
+// 학생 목록 섞기
+const shuffledArray = shuffleArray(studentList);
+console.log(shuffledArray)
+
+/**
+ * 주어진 배열은 팀으로 나누는 함수
+ * @param {Array} array - 팀으로 나눌 배열
+ * @return {Array} 팀으로 구성된 배열
+ */
+
+
