@@ -57,4 +57,44 @@ console.log(shuffledArray)
  * @return {Array} 팀으로 구성된 배열
  */
 
+function createTeams(array) {
+  // 배열을 먼저 섞음(위에 함수 선언에서)
+  const shuffled = shuffleArray(array);
+  const teamSize = 4; // 예제 편의상 리터럴로 설정 팀의 기본 크기 설정
 
+  // reduce 메서드를 사용하여 팀 생성
+  // 누산하는 배열을 빈 배열로 만들고, push 메서드를 사용하여 새 팀을 추가하므로,
+  // 주의 깊게 확인해볼 포커스
+  const teams = shuffled.reduce((acc, current, index) => {
+    // 새 팀을 시작하거나 현재 팀에 학생 추가
+    if (index % teamSize === 0 && shuffled.length - index >= teamSize) acc.push([]); // 새 팀 시작
+    // 현재 팀에 학생 추가
+    acc[acc.length -1].push(current);
+    return acc; // 팀 배열 반환
+
+    // 상수 teams는 마치 물이 적정선에 닿으면 다른 그릇에 덜어내는 것처럼 동작
+  }, []);
+
+  // 마지막 팀의 크기 조정
+  // 배열의 크기가 다른 경우 아래의 코드는 쓸모가 없어지는 안티패턴이긴하나,
+  // while문으로 조건이 성립될때까지 반복하는 점과
+  // unshift 메서드를 사용하여 배열의 맨 앞에 요소를 추가하는 점.
+  // pop 메서들 사용하여 배열의 맨 뒤에 요소를 제거하는 점을 연구할 포인트
+  const lastTeam = teams[teams.length - 1];
+  if (lastTeam.length < 5 && teams.length > 1) {
+    while (lastTeam.length < 5) {
+      lastTeam.unshift(teams[teams.length - 2].pop()); // 이전 팀에서 학생 이동
+    }
+  }
+
+  // 각 팀의 첫 번째 학생에게 '팀장-' 접두사 추가
+  teams.forEach((team) => {
+    if (team.length > 0) {
+      team[0] = '팀장-' + team[0]; // 팀장 지정
+    }
+  });
+
+  return teams;
+}
+
+console.log(createTeams(studentList));
